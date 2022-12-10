@@ -1,14 +1,21 @@
 header {
    height: 60px;
    display: flex;
-   justify-content: center;
+   justify-content: flex-start;
    align-items: center;
    background-color: #222222;
    margin: 0 20px 0 20px;
+   padding: 10px;
    border-bottom: #555555 solid 1px;
    border-left: #555555 solid 1px;
    border-right: #555555 solid 1px;
    border-bottom-left-radius: 5px;
    border-bottom-right-radius: 5px;
-  
+   img {
+      height: 40px;
+   }
+   .appname {
+      padding-left: 50px;
+      font-size: 32px;
+   }
 }

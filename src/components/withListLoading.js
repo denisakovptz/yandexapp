@@ -4,8 +4,8 @@ function WithListLoading(Component) {
    return function IsLoadingComponent({ isLoading, ...props }) {
       if (!isLoading) return <Component {...props} />;
       return (
-         <p style={{ textAlign: 'center', fontSize: '30px' }}>
-            Hold on, fetching data may take some time :)
+         <p style={{ textAlign: 'center', fontSize: '20px' }}>
+            Loading...
          </p>
       );
    };
