@@ -1,6 +1,6 @@
 import React from 'react';
 
-function WithListLoading(Component) {
+function LoadingList(Component) {
    return function IsLoadingComponent({ isLoading, ...props }) {
       if (!isLoading) return <Component {...props} />;
       return (
@@ -10,4 +10,4 @@ function WithListLoading(Component) {
       );
    };
 }
-export default WithListLoading;
+export default LoadingList;

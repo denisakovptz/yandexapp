@@ -23,7 +23,6 @@ const List = (props) => {
 
       case 'get_groups':
         const groups = props.data.result.AdGroups;
-        console.log(props);
         return (
           <ul>
             <h2 className='list-head'>Groups</h2>
