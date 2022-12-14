@@ -1,8 +1,12 @@
 @import 'reset';
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
+body {
+  font-size: 16px;
+  line-height: 120%;
+}
 
-.App {
+.app {
   background-color: #141414;
   color: #e1e3e6;
   font-family: 'Roboto', serif;
@@ -21,7 +25,7 @@
 }
 
 .sidebar-container {
-  flex: 0 1 300px;
+  flex: 0 1 400px;
   padding: 20px;
   background-color: #222222;
   border: #555555 solid 1px;
@@ -34,6 +38,16 @@
   background-color: #222222;
   border: #555555 solid 1px;
   border-radius: 5px;
+}
+
+.camp_link {
+  color: #e1e3e6;
+  &:hover {
+    color: #888888;
+  }
+}
+.camp_groups {
+  margin-left: 10px;
 }
 
 

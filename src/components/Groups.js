@@ -3,7 +3,7 @@ import React from 'react';
 function Groups(props) {
 
    if (props.data) {
-      const groups = props.data.result.AdGroups;
+      const groups = props.data.AdGroups;
       return (
          <ul>
             {groups.map((group) => {
@@ -18,7 +18,7 @@ function Groups(props) {
 
    return (
       <p style={{ textAlign: 'center', fontSize: '20px' }}>
-         Error...
+         Error loading groups...
       </p>
    );
 

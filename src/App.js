@@ -1,44 +1,41 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route, Outlet, Link } from "react-router-dom";
 
+import axios from 'axios';
+
 import './styles/App.scss';
 
 import Header from './pages/Header';
 import Footer from './pages/Footer';
-import List from './components/List';
 import Groups from './components/Groups';
+import Campaigns from './components/Campaigns'
 import LoadingList from './components/LoadingList';
-import { get_campaigns, get_groups, api_url } from './helpers/yandexApi';
+import { get_campaigns, get_groups, api_url, get_group_stats } from './helpers/yandexApi';
 
 function App() {
 
-   const ListData = LoadingList(List);
+   const CampaignsData = LoadingList(Campaigns);
    const GroupsData = LoadingList(Groups);
 
    const [campState, setCampState] = useState({
       loading: false,
       data: null,
+      active: null
    });
    const [groupsState, setGroupsState] = useState({
       loading: false,
-      data: null,
+      data: null
    });
 
    function fetchData(request) {
-      fetch(api_url, {
-         method: 'POST',
-         headers: {
-            'Content-Type': 'application/json'
-         },
-         body: JSON.stringify(request)
-      })
-         .then((res) => res.json())
+
+      axios.post(api_url, request, { 'Content-Type': 'application/json' })
          .then((json) => {
-            if (json.result && json.result.hasOwnProperty('AdGroups')) {
-               setGroupsState({ loading: false, data: json });
+            if (json.data.result && json.data.result.hasOwnProperty('AdGroups')) {
+               setGroupsState({ ...groupsState, loading: false, data: json.data.result });
             }
-            if (json.result && json.result.hasOwnProperty('Campaigns')) {
-               setCampState({ loading: false, data: json });
+            if (json.data.result && json.data.result.hasOwnProperty('Campaigns')) {
+               setCampState({ ...campState, loading: false, data: json.data.result });
             }
          })
          .catch((err) => {
@@ -47,36 +44,38 @@ function App() {
          });
    }
 
-   useEffect(() => {
-      setCampState({ loading: true });
-      fetchData(get_campaigns);
-   }, []);
 
    useEffect(() => {
-      setGroupsState({ loading: true });
+      setCampState({ ...campState, loading: true });
+      fetchData(get_campaigns);
+      setGroupsState({ ...groupsState, loading: true });
       fetchData(get_groups);
    }, []);
+
+
+   function showGroups(CampaignsId) {
+      get_groups["apiSet"]["params"]["SelectionCriteria"]["CampaignIds"] = [CampaignsId];
+      fetchData(get_groups);
+      setCampState({ ...campState, active: CampaignsId });
+      setGroupsState({ ...groupsState, loading: true });
+
+
+   }
+
 
 
    function Client() {
       return (
          <div className='container'>
             <div className='sidebar-container'>
-               <p>Кампании клиета</p>
-               <ListData isLoading={campState.loading} data={campState.data} request='get_campaigns' />
-            </div>
-            <div className='body-container'>
-               <GroupsData isLoading={groupsState.loading} data={groupsState.data} />
-            </div>
-         </div>
-      )
-   }
-
-   function AllClients() {
-      return (
-         <div className='container'>
-            <div className='sidebar-container'>
-               <ListData isLoading={campState.loading} data={campState.data} request='get_campaigns' />
+               <CampaignsData
+                  isLoading={campState.loading}
+                  data={campState.data}
+                  showGroups={showGroups}
+                  groupsData={groupsState.data}
+                  active={campState.active}
+                  isLoadingGroups={groupsState.loading}
+               />
             </div>
             <div className='body-container'>
                <GroupsData isLoading={groupsState.loading} data={groupsState.data} />
@@ -87,12 +86,10 @@ function App() {
 
    return (
 
-
-      <div className='App'>
+      <div className='app'>
          <Header />
          <Routes>
-            <Route path="/" element={<AllClients />} />
-            <Route path="client" element={<Client />} />
+            <Route path="/" element={<Client />} />
          </Routes>
          <Footer />
       </div>
