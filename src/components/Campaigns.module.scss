@@ -1,0 +1,17 @@
+.camp_link {
+   color: #e1e3e6;
+   &:hover {
+     color: rgb(0, 255, 85);
+   }
+
+   
+ }
+ .camp_groups {
+   margin-left: 10px;
+ }
+.active {
+   color: rgba(0, 255, 85, 0.733);
+   &:hover {
+     color: rgb(0, 255, 85);
+   }
+}

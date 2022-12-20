@@ -25,7 +25,7 @@ const get_campaigns = {
       "method": "get",
       "params": {
          "SelectionCriteria": {},
-         "FieldNames": ["Id", "Name"]
+         "FieldNames": ["Id", "Name", "Status"]
       }
    }
 };
@@ -40,7 +40,7 @@ const get_groups = {
          "SelectionCriteria": {
             "CampaignIds": [436184, 436186]
          },
-         "FieldNames": ["Id", "Name"]
+         "FieldNames": ["CampaignId", "Id", "Name", "Status"]
       }
    }
 }

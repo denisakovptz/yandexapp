@@ -15,39 +15,3 @@ body {
   width: 100%;
   min-height: 100vh;
 }
-
-.container {
-  flex: 1 1 auto;
-  margin: 20px;
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-.sidebar-container {
-  flex: 0 1 400px;
-  padding: 20px;
-  background-color: #222222;
-  border: #555555 solid 1px;
-  border-radius: 5px;
-}
-
-.body-container {
-  flex: 1 1 auto;
-  padding: 20px;
-  background-color: #222222;
-  border: #555555 solid 1px;
-  border-radius: 5px;
-}
-
-.camp_link {
-  color: #e1e3e6;
-  &:hover {
-    color: #888888;
-  }
-}
-.camp_groups {
-  margin-left: 10px;
-}
-
-
