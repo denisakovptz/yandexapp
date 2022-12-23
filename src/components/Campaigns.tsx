@@ -7,7 +7,7 @@ import { showGroups, showAllGroups } from '../redux/slices/groupsSlice'
 
 import styles from './Campaigns.module.scss';
 
-function Campaigns() {
+const Campaigns: React.FC = () => {
 
    const campaigns = useSelector((state: RootState) => state.campaigns.data);
    const groups = useSelector((state: RootState) => state.groups.data);

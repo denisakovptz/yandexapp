@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 
 import { RootState } from '../redux/store';
 
-function Groups() {
+const Groups: React.FC = () => {
 
    const { showData } = useSelector((state: RootState) => state.groups);
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { fetchGroups } from '../../redux/slices/groupsSlice';
 import { fetchCampaigns } from '../../redux/slices/campaignsSlice';
