@@ -4,15 +4,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchGroups } from '../../redux/slices/groupsSlice';
 import { fetchCampaigns } from '../../redux/slices/campaignsSlice';
 
+import { RootState, useAppDispatch } from '../../redux/store';
+
 import styles from './Home.module.scss';
 
 import Groups from '../../components/Groups';
 import Campaigns from '../../components/Campaigns';
 
-const Home = () => {
+const Home: React.FC = () => {
 
-   const dispatch = useDispatch();
-   const campIds = useSelector((state) => state.campaigns.campIdList);
+   const dispatch = useAppDispatch();
+   const campIds: number[] = useSelector((state: RootState) => state.campaigns.campIdList);
    const isLoadingCamp = useRef(false);
 
    useEffect(() => {

@@ -2,8 +2,9 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import axios from 'axios';
 import { get_campaigns, api_url } from '../../helpers/yandexApi';
+import { CampaignsState, CampData } from './types';
 
-const initialState = {
+const initialState: CampaignsState = {
    data: [],
    campIdList: [],
    status: null,
@@ -14,15 +15,14 @@ export const fetchCampaigns = createAsyncThunk('campaigns/fetchCampaigns', async
    try {
       const apiRequest = { ...get_campaigns };
 
-      const json = await axios.post(api_url, apiRequest, { 'Content-Type': 'application/json' });
-
+      const json = await axios.post(api_url, apiRequest);
 
       if (json.status != 200) {
          throw new Error('Server error!');
       }
       return json.data.result.Campaigns;
 
-   } catch (error) {
+   } catch (error: any) {
       console.warn(error);
       return rejectWithValue(error.message)
    }
@@ -41,7 +41,7 @@ export const campaignsSlice = createSlice({
          .addCase(fetchCampaigns.fulfilled, (state, action) => {
             state.status = 'resolved';
             state.data = action.payload;
-            state.campIdList = action.payload.map(camp => camp.Id);
+            state.campIdList = action.payload.map((camp: any) => camp.Id);
          })
          .addCase(fetchCampaigns.rejected, (state, action) => {
             state.status = 'rejected';

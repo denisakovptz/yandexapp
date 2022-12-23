@@ -1,11 +1,10 @@
-import React from 'react';
-
 import { useSelector } from 'react-redux';
+
+import { RootState } from '../redux/store';
 
 function Groups() {
 
-   const { showData } = useSelector((state) => state.groups);
-   const campIds = useSelector((state) => state.campaigns.campIdList);
+   const { showData } = useSelector((state: RootState) => state.groups);
 
    return (
       <ul>
@@ -20,5 +19,3 @@ function Groups() {
 }
 
 export default Groups;
-
-//436184, 436185, 436186

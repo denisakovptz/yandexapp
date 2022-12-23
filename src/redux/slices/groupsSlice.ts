@@ -2,15 +2,16 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import axios from 'axios';
 import { get_groups, api_url } from '../../helpers/yandexApi';
+import { GroupsState, CampaignsState } from './types';
 
-const initialState = {
+const initialState: GroupsState = {
    data: [],
    showData: [],
    status: null,
    error: null,
 };
 
-export const fetchGroups = createAsyncThunk('groups/fetchGroups', async function (camps, { rejectWithValue }) {
+export const fetchGroups = createAsyncThunk('groups/fetchGroups', async function (camps: number[], { rejectWithValue }) {
    try {
       const apiRequest = {
          ...get_groups,
@@ -26,14 +27,14 @@ export const fetchGroups = createAsyncThunk('groups/fetchGroups', async function
          }
       };
 
-      const json = await axios.post(api_url, apiRequest, { 'Content-Type': 'application/json' });
+      const json = await axios.post(api_url, apiRequest);
 
       if (json.status != 200) {
          throw new Error('Server error!');
       }
       return json.data.result.AdGroups;
 
-   } catch (error) {
+   } catch (error: any) {
       console.warn(error);
       return rejectWithValue(error.message)
    }

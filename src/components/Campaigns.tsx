@@ -1,21 +1,22 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
-import { useSelector, useDispatch } from 'react-redux';
+
+import { useSelector } from 'react-redux';
+import { RootState, useAppDispatch } from '../redux/store';
 import { showGroups, showAllGroups } from '../redux/slices/groupsSlice'
 
 import styles from './Campaigns.module.scss';
 
 function Campaigns() {
 
-   const campaigns = useSelector((state) => state.campaigns.data);
-   const groups = useSelector((state) => state.groups.data);
+   const campaigns = useSelector((state: RootState) => state.campaigns.data);
+   const groups = useSelector((state: RootState) => state.groups.data);
 
-   const dispatch = useDispatch();
+   const dispatch = useAppDispatch();
 
-   const [activeCamp, setActiveCamp] = useState(null);
+   const [activeCamp, setActiveCamp] = useState<null | number>(null);
 
-   const showGroupsCamp = (campId) => {
+   const showGroupsCamp = (campId: number) => {
       const adGroups = groups.filter(val => val.CampaignId == campId);
       return (<ul className={styles.camp_groups}>
          {adGroups.map((group) => {
@@ -42,7 +43,7 @@ function Campaigns() {
             }
             return (
                <li key={campaign.Id} className={styles.list}>
-                  <Link onClick={setActive} className={(activeCamp == campaign.Id) ? styles.active : styles.camp_link}>ID: {campaign.Id} - {campaign.Name}</Link>
+                  <a onClick={setActive} className={(activeCamp == campaign.Id) ? styles.active : styles.camp_link}>ID: {campaign.Id} - {campaign.Name}</a>
                   {(campaign.Id == activeCamp) ?
                      showGroupsCamp(campaign.Id) :
                      ''}
