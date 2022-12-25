@@ -1,6 +1,8 @@
+import styles from './Footer.module.scss';
+
 const Footer: React.FC = () => {
    return (
-      <footer>(c) Copyright 2022</footer>
+      <footer className={styles.footer}>(c) Copyright 2022</footer>
    )
 };
 

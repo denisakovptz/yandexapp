@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 
 import { fetchGroups } from '../../redux/slices/groupsSlice';
 import { fetchCampaigns } from '../../redux/slices/campaignsSlice';
+import { fetchCampStats } from '../../redux/slices/campaignStats';
 
 import { RootState, useAppDispatch } from '../../redux/store';
 
@@ -10,15 +11,18 @@ import styles from './Home.module.scss';
 
 import Groups from '../../components/Groups';
 import Campaigns from '../../components/Campaigns';
+import Statistic from '../../components/Statistic';
+
 
 const Home: React.FC = () => {
 
    const dispatch = useAppDispatch();
    const campIds: number[] = useSelector((state: RootState) => state.campaigns.campIdList);
-   const isLoadingCamp = useRef(false);
+   const isLoadingCamp = useRef<boolean>(false);
 
    useEffect(() => {
       dispatch(fetchCampaigns());
+      dispatch(fetchCampStats());
    }, []);
 
    useEffect(() => {
@@ -34,7 +38,7 @@ const Home: React.FC = () => {
             <Campaigns />
          </div>
          <div className={styles.body_container}>
-            <Groups />
+            <Statistic />
          </div>
       </div>
    )

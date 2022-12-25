@@ -3,11 +3,13 @@ import { useDispatch } from 'react-redux';
 
 import groupsReducer from './slices/groupsSlice';
 import campaignsReducer from './slices/campaignsSlice';
+import campstatsReducer from './slices/campaignStats';
 
 export const store = configureStore({
    reducer: {
       groups: groupsReducer,
       campaigns: campaignsReducer,
+      campstats: campstatsReducer,
    },
 });
 

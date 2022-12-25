@@ -52,9 +52,10 @@ app.use(cors(corsOptions));
 app.post("/", jsonParser, function (req, res) {
 
    if (!req.body) return res.sendStatus(400);
-   console.log(JSON.stringify(req.body.apiUrl));
-   console.log(JSON.stringify(req.body.apiSet));
-   console.log(JSON.stringify(req.body.apiAuth));
+   // console.log(JSON.stringify(req.body.apiUrl));
+   // console.log(JSON.stringify(req.body.apiSet));
+   // console.log(JSON.stringify(req.body.apiAuth));
+
    const request = require('request');
 
    request.post({
@@ -65,6 +66,7 @@ app.post("/", jsonParser, function (req, res) {
       body: JSON.stringify(req.body.apiSet)
    }, function (error, response, body) {
       console.log(body);
+      console.log('====================');
       res.send(body);
    });
 

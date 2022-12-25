@@ -38,9 +38,35 @@ const get_groups = {
       "method": "get",
       "params": {
          "SelectionCriteria": {
-            "CampaignIds": [436184, 436186]
+            "CampaignIds": []
          },
          "FieldNames": ["CampaignId", "Id", "Name", "Status"]
+      }
+   }
+}
+
+const get_camp_stats = {
+   "apiUrl": API_URL_STATS,
+   "apiAuth": API_AUTH,
+   "apiSet": {
+      "params": {
+         "SelectionCriteria": {
+            "Filter": [{
+               "Field": "CampaignId",
+               "Operator": "IN",
+               "Values": ["444758"]
+            }]
+         },
+         "FieldNames": ["CampaignId", "CampaignName", "Impressions", "Clicks", "Cost", "Ctr", "BounceRate"],
+         "OrderBy": [{
+            "Field": "CampaignId"
+         }],
+         "ReportName": "Actual Data",
+         "ReportType": "CAMPAIGN_PERFORMANCE_REPORT",
+         "DateRangeType": "ALL_TIME",
+         "Format": "TSV",
+         "IncludeVAT": "YES",
+         "IncludeDiscount": "YES"
       }
    }
 }
@@ -51,22 +77,21 @@ const get_group_stats = {
    "apiSet": {
       "params": {
          "SelectionCriteria": {
-            "DateFrom": "2022-01-01",
-            "DateTo": "2022-12-01",
+            // "DateFrom": '2022-12-19',
+            // "DateTo": '2022-12-24',
             "Filter": [{
                "Field": "AdGroupId",
                "Operator": "IN",
-               "Values": ["4257314"]
-
+               "Values": ["4437753"]
             }]
          },
-         "FieldNames": ["Date", "AdGroupId", "Clicks", "Cost"],
+         "FieldNames": ["AdGroupId", "AdGroupName", "Impressions", "Clicks", "Cost", "Ctr", "BounceRate"],
          "OrderBy": [{
-            "Field": "Date"
+            "Field": "AdGroupId"
          }],
-         "ReportName": "Actual Data",
+         "ReportName": "Actual Groups Data",
          "ReportType": "ADGROUP_PERFORMANCE_REPORT",
-         "DateRangeType": "CUSTOM_DATE",
+         "DateRangeType": "LAST_3_DAYS",
          "Format": "TSV",
          "IncludeVAT": "YES",
          "IncludeDiscount": "YES"
@@ -79,5 +104,6 @@ export {
    get_campaigns,
    get_groups,
    get_client,
-   get_group_stats
+   get_group_stats,
+   get_camp_stats
 }

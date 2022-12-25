@@ -1,8 +1,8 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
 import axios from 'axios';
 import { get_groups, api_url } from '../../helpers/yandexApi';
-import { GroupsState, CampaignsState } from './types';
+import { GroupsState, GroupsData } from './types';
 
 const initialState: GroupsState = {
    data: [],
@@ -11,7 +11,7 @@ const initialState: GroupsState = {
    error: null,
 };
 
-export const fetchGroups = createAsyncThunk('groups/fetchGroups', async function (camps: number[], { rejectWithValue }) {
+export const fetchGroups = createAsyncThunk<GroupsData[], number[]>('groups/fetchGroups', async function (camps: number[], { rejectWithValue }) {
    try {
       const apiRequest = {
          ...get_groups,
@@ -44,9 +44,9 @@ export const groupsSlice = createSlice({
    name: 'groups',
    initialState,
    reducers: {
-      showGroups: (state, action) => {
-         let arr = state.data.filter(val => val.CampaignId == action.payload);
-         state.showData = arr;
+      showGroups: (state, action: PayloadAction<number[]>) => {
+         let groupsArr = state.data.filter((group) => action.payload.includes(group.CampaignId));
+         state.showData = groupsArr;
       },
       showAllGroups: (state) => {
          state.showData = state.data;
@@ -58,12 +58,12 @@ export const groupsSlice = createSlice({
             state.status = 'loading';
             state.error = null;
          })
-         .addCase(fetchGroups.fulfilled, (state, action) => {
+         .addCase(fetchGroups.fulfilled, (state, action: PayloadAction<GroupsData[]>) => {
             state.status = 'resolved';
             state.data = action.payload;
             state.showData = action.payload;
          })
-         .addCase(fetchGroups.rejected, (state, action) => {
+         .addCase(fetchGroups.rejected, (state, action: any) => {
             state.status = 'rejected';
             state.error = action.payload;
          })

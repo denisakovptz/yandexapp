@@ -28,30 +28,33 @@ const Campaigns: React.FC = () => {
    };
 
    return (
-      <ul>
-         {campaigns.map((campaign) => {
+      <>
+         <h2 className={styles.camp}>Campaigns</h2>
+         <ul>
+            {campaigns.map((campaign) => {
 
-            const setActive = () => {
-               if (activeCamp == campaign.Id) {
-                  setActiveCamp(null);
-                  dispatch(showAllGroups());
-               } else {
-                  setActiveCamp(campaign.Id);
-                  dispatch(showGroups([campaign.Id]));
+               const setActive = () => {
+                  if (activeCamp == campaign.Id) {
+                     setActiveCamp(null);
+                     dispatch(showAllGroups());
+                  } else {
+                     setActiveCamp(campaign.Id);
+                     dispatch(showGroups([campaign.Id]));
+                  }
+
                }
+               return (
+                  <li key={campaign.Id} className={styles.list}>
+                     <a onClick={setActive} className={(activeCamp == campaign.Id) ? styles.active : styles.camp_link}>ID: {campaign.Id} - {campaign.Name}</a>
+                     {(campaign.Id == activeCamp) ?
+                        showGroupsCamp(campaign.Id) :
+                        ''}
+                  </li>
+               );
 
-            }
-            return (
-               <li key={campaign.Id} className={styles.list}>
-                  <a onClick={setActive} className={(activeCamp == campaign.Id) ? styles.active : styles.camp_link}>ID: {campaign.Id} - {campaign.Name}</a>
-                  {(campaign.Id == activeCamp) ?
-                     showGroupsCamp(campaign.Id) :
-                     ''}
-               </li>
-            );
-
-         })}
-      </ul>
+            })}
+         </ul>
+      </>
    );
 }
 

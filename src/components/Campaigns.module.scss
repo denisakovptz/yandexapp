@@ -1,6 +1,12 @@
+.list {
+  padding-bottom: 6px;
+}
+
 .camp_link {
    color: #e1e3e6;
    cursor: pointer;
+   transition: color 0.2s;
+
    &:hover {
      color: rgb(0, 255, 85);
    }
@@ -16,4 +22,10 @@
    &:hover {
      color: rgb(0, 255, 85);
    }
+}
+
+.camp {
+  color: rgba(0, 255, 85, 0.733);
+  font-size: 18px;
+  padding-bottom: 24px;
 }
