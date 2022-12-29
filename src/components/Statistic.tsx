@@ -18,7 +18,7 @@ const Statistic: React.FC = () => {
          ?
          <ErrorModal error={error} clearError={() => dispatch(clearError())} />
          :
-         <div className={styles.stat_body}>
+         <div>
             {
                data.map((el, index) => {
                   return <div key={index} className={styles.row} style={{ gridTemplateColumns: `40px repeat(${el.length}, minmax(150px, 1fr))` }}>

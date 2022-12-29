@@ -9,10 +9,9 @@ import { RootState, useAppDispatch } from '../../redux/store';
 
 import styles from './Home.module.scss';
 
-import Groups from '../../components/Groups';
 import Campaigns from '../../components/Campaigns';
 import Statistic from '../../components/Statistic';
-import { ErrorModal } from '../../components/errorModal';
+import { ApiSetType, DateRangeType, Format, IncludeDiscount, IncludeVAT, Operator, ReportType } from '../../helpers/yandexStatsApiTypes';
 
 
 const Home: React.FC = () => {
@@ -21,14 +20,38 @@ const Home: React.FC = () => {
    const campIds: number[] = useSelector((state: RootState) => state.campaigns.campIdList);
    const isLoadingCamp = useRef<boolean>(false);
 
+   const apiSet: ApiSetType = {
+      params: {
+         SelectionCriteria: {
+            Filter: [{
+               Field: "CampaignId",
+               Operator: Operator.IN,
+               Values: []
+            }]
+         },
+         FieldNames: ["AdGroupId", "AdGroupName", "Impressions", "Clicks", "Cost", "Ctr", "BounceRate", "AvgClickPosition", "AvgPageviews"],
+         OrderBy: [{
+            Field: "AdGroupId"
+         }],
+         ReportName: "Actual Groups Data",
+         ReportType: ReportType.ADGROUP_PERFORMANCE_REPORT,
+         DateRangeType: DateRangeType.LAST_7_DAYS,
+         Format: Format.TSV,
+         IncludeVAT: IncludeVAT.YES,
+         IncludeDiscount: IncludeDiscount.YES
+      }
+   }
+
    useEffect(() => {
       dispatch(fetchCampaigns());
-      dispatch(fetchCampStats());
+
    }, []);
 
    useEffect(() => {
       if (isLoadingCamp.current) {
          dispatch(fetchGroups(campIds));
+         apiSet.params.SelectionCriteria.Filter[0].Values = campIds;
+         dispatch(fetchCampStats(apiSet));
       }
       isLoadingCamp.current = true;
    }, [campIds]);

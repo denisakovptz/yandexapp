@@ -1,11 +1,11 @@
-const API_URL_CLIENTS = "https://api-sandbox.direct.yandex.com/json/v5/clients";
-const API_URL_CAMPAIGNS = "https://api-sandbox.direct.yandex.com/json/v5/campaigns";
-const API_URL_GROUPS = "https://api-sandbox.direct.yandex.com/json/v5/adgroups";
-const API_URL_STATS = "https://api-sandbox.direct.yandex.com/json/v5/reports";
+export const API_URL_CLIENTS = "https://api-sandbox.direct.yandex.com/json/v5/clients";
+export const API_URL_CAMPAIGNS = "https://api-sandbox.direct.yandex.com/json/v5/campaigns";
+export const API_URL_GROUPS = "https://api-sandbox.direct.yandex.com/json/v5/adgroups";
+export const API_URL_STATS = "https://api-sandbox.direct.yandex.com/json/v5/reports";
 
-const API_AUTH = "Bearer AQAAAAAUF2KZAAfpQCuJgxls6ElMg4VzLlykD6o";
+export const API_AUTH = "Bearer AQAAAAAUF2KZAAfpQCuJgxls6ElMg4VzLlykD6o";
 
-const api_url = `http://localhost:8000`;
+export const api_url = `http://localhost:8000`;
 
 const get_client = {
    "apiUrl": API_URL_CLIENTS,
@@ -100,7 +100,6 @@ const get_group_stats = {
 }
 
 export {
-   api_url,
    get_campaigns,
    get_groups,
    get_client,

@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
 import axios from 'axios';
 import { get_group_stats, api_url } from '../../helpers/yandexApi';
+import { ApiSetType, StatsApiType } from '../../helpers/yandexStatsApiTypes';
 import { StatsState, Stats } from './types';
 
 const initialState: StatsState = {
@@ -10,9 +11,9 @@ const initialState: StatsState = {
    error: null,
 };
 
-export const fetchCampStats = createAsyncThunk<Stats[]>('campstats/fetchCampStats', async function (_, { rejectWithValue }) {
+export const fetchCampStats = createAsyncThunk<Stats[], ApiSetType>('campstats/fetchCampStats', async function (apiSet: ApiSetType, { rejectWithValue }) {
    try {
-      const apiRequest = { ...get_group_stats };
+      const apiRequest: StatsApiType = { ...get_group_stats, apiSet };
 
       const json = await axios.post(api_url, apiRequest);
 

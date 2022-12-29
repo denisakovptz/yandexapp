@@ -1,4 +1,10 @@
-export interface ApiSetType {
+export type StatsApiType = {
+   apiUrl: string,
+   apiAuth: string,
+   apiSet: ApiSetType,
+}
+
+export type ApiSetType = {
    params: {
       SelectionCriteria: {
          DateFrom?: string,
@@ -12,15 +18,16 @@ export interface ApiSetType {
       ReportType: ReportType,
       DateRangeType: DateRangeType,
       Format: Format,
-      IncludeVAT: Vat,
-      IncludeDiscount?: Discount,
+      IncludeVAT: IncludeVAT,
+      IncludeDiscount?: IncludeDiscount,
    }
+
 }
 
 export type Filter = {
    Field: string,
    Operator: Operator,
-   Values: string[],
+   Values: number[],
 }
 
 export enum Operator {
@@ -67,7 +74,7 @@ export enum DateRangeType {
    AUTO = "AUTO",
 }
 
-export enum Vat {
+export enum IncludeVAT {
    YES = "YES",
    NO = "NO",
 }
@@ -76,7 +83,7 @@ export enum Format {
    TSV = "TSV",
 }
 
-export enum Discount {
+export enum IncludeDiscount {
    YES = "YES",
    NO = "NO",
 }
