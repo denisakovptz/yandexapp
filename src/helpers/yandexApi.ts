@@ -85,7 +85,7 @@ const get_group_stats = {
                "Values": ["4437753"]
             }]
          },
-         "FieldNames": ["AdGroupId", "AdGroupName", "Impressions", "Clicks", "Cost", "Ctr", "BounceRate"],
+         "FieldNames": ["AdGroupId", "AdGroupName", "Impressions", "Clicks", "Cost", "Ctr", "BounceRate", "AvgClickPosition", "AvgPageviews"],
          "OrderBy": [{
             "Field": "AdGroupId"
          }],

@@ -1,21 +1,18 @@
 .stat_body {
-
+   display: flex;
 }
 
 .row {
-
    display: grid;
-   grid-template-columns:repeat(7, 1fr);
+   grid-template-columns: repeat(7, 1fr);
    justify-content: stretch;
    gap: 10px;
    &:first-child {
       padding-bottom: 20px;
-      color:rgba(0, 255, 85, 0.733);
+      color: rgba(0, 255, 85, 0.733);
    }
-
 }
 
 .col {
    padding-bottom: 5px;
-   
 }

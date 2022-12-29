@@ -65,8 +65,20 @@ app.post("/", jsonParser, function (req, res) {
       url: req.body.apiUrl,
       body: JSON.stringify(req.body.apiSet)
    }, function (error, response, body) {
+
+      // console.log(JSON.stringify(response.rawHeaders.filter((el, i, arr) => arr[i - 1] == 'Units')));
       console.log(body);
-      console.log('====================');
+      console.log('==================');
+
+      // const units = response.rawHeaders.filter((el, i, arr) => arr[i - 1] == 'Units');
+      // const unitsObj = {
+      //    "units": units[0],
+      // }
+
+      // const unitsJson = JSON.stringify(unitsObj);
+      // const yandexRes = JSON.parse(body);
+      // console.log(yandexRes);
+
       res.send(body);
    });
 

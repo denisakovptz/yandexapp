@@ -1,17 +1,16 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
 import axios from 'axios';
-import { arrayBuffer } from 'stream/consumers';
 import { get_group_stats, api_url } from '../../helpers/yandexApi';
-import { CampaignsStatsState, CampData, CampStats } from './types';
+import { StatsState, Stats } from './types';
 
-const initialState: CampaignsStatsState = {
+const initialState: StatsState = {
    data: [],
    status: null,
    error: null,
 };
 
-export const fetchCampStats = createAsyncThunk<CampStats[]>('campstats/fetchCampStats', async function (_, { rejectWithValue }) {
+export const fetchCampStats = createAsyncThunk<Stats[]>('campstats/fetchCampStats', async function (_, { rejectWithValue }) {
    try {
       const apiRequest = { ...get_group_stats };
 
@@ -20,27 +19,35 @@ export const fetchCampStats = createAsyncThunk<CampStats[]>('campstats/fetchCamp
       if (json.status != 200) {
          throw new Error('Server error!');
       }
-      console.log(json.data.split('\n').slice(1, -2).map((el: string) => el.split('\t')));
 
       return json.data.split('\n').slice(1, -2).map((el: string) => el.split('\t'));
 
    } catch (error: any) {
-      console.warn(error);
-      return rejectWithValue(error.message)
+      if (error.response.status == 404) {
+         console.warn('Error fetching statistic: ', error.response.data);
+         return rejectWithValue(error.response.data)
+      } else {
+         console.warn('Bad request statistic:\n', error.response.data.error.error_code, '\n', error.response.data.error.error_string, '\n', error.response.data.error.error_detail);
+         return rejectWithValue(error.response.data.error)
+      }
    }
 });
 
-export const campaignsStats = createSlice({
-   name: 'campstats',
+export const stats = createSlice({
+   name: 'stats',
    initialState,
-   reducers: {},
+   reducers: {
+      clearError: (state) => {
+         state.error = null;
+      }
+   },
    extraReducers: (builder) => {
       builder
          .addCase(fetchCampStats.pending, (state) => {
             state.status = 'loading';
             state.error = null;
          })
-         .addCase(fetchCampStats.fulfilled, (state, action: PayloadAction<CampStats[]>) => {
+         .addCase(fetchCampStats.fulfilled, (state, action: PayloadAction<Stats[]>) => {
             state.status = 'resolved';
             state.data = action.payload;
          })
@@ -51,5 +58,5 @@ export const campaignsStats = createSlice({
    },
 });
 
-export const { } = campaignsStats.actions;
-export default campaignsStats.reducer;
+export const { clearError } = stats.actions;
+export default stats.reducer;

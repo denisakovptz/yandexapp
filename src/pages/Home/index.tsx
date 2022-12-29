@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import { fetchGroups } from '../../redux/slices/groupsSlice';
 import { fetchCampaigns } from '../../redux/slices/campaignsSlice';
-import { fetchCampStats } from '../../redux/slices/campaignStats';
+import { fetchCampStats } from '../../redux/slices/statsSlice';
 
 import { RootState, useAppDispatch } from '../../redux/store';
 
@@ -12,6 +12,7 @@ import styles from './Home.module.scss';
 import Groups from '../../components/Groups';
 import Campaigns from '../../components/Campaigns';
 import Statistic from '../../components/Statistic';
+import { ErrorModal } from '../../components/errorModal';
 
 
 const Home: React.FC = () => {

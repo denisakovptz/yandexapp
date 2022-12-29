@@ -2,13 +2,19 @@ export interface CampaignsState {
    data: CampData[],
    campIdList: number[],
    status: null | string,
-   error: any,
+   error: null | CampError,
 };
 
 export type CampData = {
    Id: number,
    Status: string,
-   Name: string
+   Name: string,
+}
+
+export type CampError = {
+   error_code: number,
+   error_string: string,
+   error_detail: string,
 }
 
 export interface GroupsState {
@@ -22,21 +28,17 @@ export type GroupsData = {
    Id: number,
    Name: string,
    CampaignId: number,
-   Status: string
+   Status: string,
 }
-export interface CampaignsStatsState {
-   data: CampStats[],
+export interface StatsState {
+   data: Stats[],
    status: null | string,
    error: any,
 };
 
-export type CampStats = string[];
-// export type CampStats = {
-//    CampaignId: number,
-//    CampaignName: string,
-//    Impressions: number,
-//    Clicks: number,
-//    Cost: number,
-//    Ctr: number,
-//    BounceRate: number,
-// }
+export type Stats = string[];
+
+export interface UnitsState {
+   balance: number,
+   startBalance: number,
+};

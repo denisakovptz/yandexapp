@@ -35,8 +35,13 @@ export const fetchGroups = createAsyncThunk<GroupsData[], number[]>('groups/fetc
       return json.data.result.AdGroups;
 
    } catch (error: any) {
-      console.warn(error);
-      return rejectWithValue(error.message)
+      if (error.response.status == 404) {
+         console.warn('Error fetching groups: ', error.response.data);
+         return rejectWithValue(error.response.data)
+      } else {
+         console.warn('Bad request groups:\n', error.response.data.error.error_code, '\n', error.response.data.error.error_string, '\n', error.response.data.error.error_detail);
+         return rejectWithValue(error.response.data.error)
+      }
    }
 });
 
